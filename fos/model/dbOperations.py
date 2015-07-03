@@ -10,20 +10,26 @@ def connectToDb():
     return db
 
 # creating customers Collection to fosDb
-def createCustomerAccount():
+def getCustomersCollection():
     db = connectToDb()
     customer = db["customers"]
     return customer
 
 # creating Admins collection to fosDb
-def createAdminAccount():
+def getAdminsCollection():
     db = connectToDb()
     admins = db["admins"]
     return admins
 
 # creating Vendors collection to fosDb
-def createVendorAccount():
+def getVendorsCollection():
     db = connectToDb()
     vendors = db["vendors"]
     return vendors
+
+# creating Orders collection to fosDb
+def getOrdersCollection():
+    db = connectToDb()
+    orders = db["orders"]
+    return orders
 

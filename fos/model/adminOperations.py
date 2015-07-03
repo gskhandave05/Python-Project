@@ -4,8 +4,8 @@ __author__ = 'jhawar_p'
 from dbOperations import *
 
 # Inserting admin details to database
-def insetAdmin(adminId, name, email, username, password, contact):
-    admin = createAdminAccount()
+def insertAdmin(adminId, name, email, username, password, contact):
+    admin = getAdminsCollection()
     adminDetails = {
         "_id" : adminId,
         "name": name,
