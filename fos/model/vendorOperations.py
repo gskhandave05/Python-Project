@@ -4,6 +4,8 @@ __author__ = 'khandave_g'
 from pymongo import MongoClient
 from dbOperations import *
 
+# Inserting vendor details to database
+#parameters menu and customerReviews are of directory type having key value pair
 def insertVendor(id,name,email,contact,username,password,menu,customerReviews):
     vendor = createVendorAccount()
     vendorDetails = {
