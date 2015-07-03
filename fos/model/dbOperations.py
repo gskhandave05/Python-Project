@@ -1,6 +1,6 @@
 __author__ = 'khandave_g'
 
-# importing mongo db package for mongoclient
+# importing Mongo db package for MongoClient
 from pymongo import MongoClient
 
 # creating connection with MongoClient
