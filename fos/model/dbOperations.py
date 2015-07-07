@@ -29,4 +29,3 @@ def addCustomer(name, contact, email, isRegistered, username, password, flat_no,
         cur.execute("INSERT INTO CUSTOMERS(name, contact, email, address_id, isRegistered, username, password)VALUES(%s,%s,%s,%s,%s,%s,%s),"
                     (name, contact, email, address_id, isRegistered, username, password))
 
-
