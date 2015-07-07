@@ -1,35 +1,20 @@
 __author__ = 'khandave_g'
 
-# importing Mongo db package for MongoClient
-from pymongo import MongoClient
+import MySQLdb as mdb
 
-# creating connection with MongoClient
+
 def connectToDb():
-    client = MongoClient()
-    db = client["fosDb"]
-    return db
+    return mdb.connect('localhost', 'fos', 'root', 'fosdb')
 
-# creating customers Collection to fosDb
-def getCustomersCollection():
-    db = connectToDb()
-    customer = db["customers"]
-    return customer
 
-# creating Admins collection to fosDb
-def getAdminsCollection():
-    db = connectToDb()
-    admins = db["admins"]
-    return admins
-
-# creating Vendors collection to fosDb
-def getVendorsCollection():
-    db = connectToDb()
-    vendors = db["vendors"]
-    return vendors
-
-# creating Orders collection to fosDb
-def getOrdersCollection():
-    db = connectToDb()
-    orders = db["orders"]
-    return orders
-
+def addVendor(name, contact, email, username, password, isActive, menu):
+    con = connectToDb()
+    with con:
+        cur = con.cursor()
+        menu_id = cur.execute("SELECT MENU_ID FROM MENU ORDER BY MENU_ID DESC LIMIT 1")
+        for menuItem in menu:
+            cur.execute("INSERT INTO MENU(menu_id,item_name,price) values (%d,%s,%s)",
+                        (menu_id + 1, menuItem.name, menuItem.price))
+        cur.execute(
+            "INSERT INTO VENDORS(name,contact,email,username, password,isActive,menu_id) VALUES (%s,%s,%s,%s,%s,%d,%d)",
+            (name, contact, email,username,password,isActive, menu_id + 1))
