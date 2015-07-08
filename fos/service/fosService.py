@@ -9,7 +9,16 @@ urls = (
 
 app = web.application(urls, globals())
 
-render = web.template.render('../view/')
+store = web.session.DiskStore('/var/www/sessions')
+
+if web.config.get('_session') is None:
+    session = web.session.Session(app,store,initializer={'login': 0,'privilege': 0,'username':'anonymous','loggedin':False,'userId':0})
+    web.config._session = session
+else:
+    session = web.config._session
+
+sessionData = session._initializer
+render = web.template.render('view/',globals={'session':sessionData,'username':sessionData['username'],'userId':sessionData['userId']})
 
 class VendorLogin(object):
     def GET(self):
@@ -18,7 +27,11 @@ class VendorLogin(object):
     def POST(self):
         form = web.input(username=None, password=None)
         if loginService.authenticateVendor(form.username,form.password):
-            user = form.username
-            return render.index(user = user.upper())
+            sessionData['username'] = form.username
+            return render.vendorHome(session = sessionData)
         else:
             return "Invalid Credentials"
+
+
+if __name__ == "__main__":
+    app.run()
