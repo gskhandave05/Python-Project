@@ -1,8 +1,8 @@
 __author__ = 'khandave_g'
 
 import MySQLdb as mdb
-
-con = mdb.connect('localhost', 'fos', 'root', 'fosdb')
+def connectToDb():
+    return mdb.connect('localhost', 'fos', 'root', 'fosdb')
 
 def addVendor(name, contact, email, username, password, isActive, menu):
     con = connectToDb()
@@ -17,6 +17,7 @@ def addVendor(name, contact, email, username, password, isActive, menu):
                         (vendor_id, menuItem.name, menuItem.price))
 
 def getAllAdminsFromDb():
+    con = connectToDb()
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("Select * from admins")
@@ -24,6 +25,7 @@ def getAllAdminsFromDb():
         return adminList
 
 def getAllVendorsFromDb():
+    con = connectToDb()
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("Select * from vendors")
