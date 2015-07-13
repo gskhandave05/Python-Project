@@ -6,5 +6,8 @@ $def with (session)
 </head>
 <body>
 Welcome $session['username']
+<form role ="form" class = "form-control" action="\logout" method="get" onsubmit="alert('Logged Out Successfully!!')">
+    <button type="submit" class="btn btn-primary" >LogOut</button>
+</form>
 </body>
 </html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+<center>
+    <form id="vendorRegister" class="form-control">
+        <table id="registerMenu">
+            <tr>
+                <td><h2>SignUp Form</h2></td>
+            </tr>
+
+            <tr>
+                <td><label>Name :</label></td>
+                <td><input class="form-control" type="text" name="name" required/></td>
+                <br></tr>
+            <tr>
+                <td><label>Contact :</label></td>
+                <td><input class="form-control" type="text" name="contact" required/></td>
+                <br></tr>
+            <tr>
+                <td><label>Email :</label></td>
+                <td><input class="form-control" type="email" name="email" required/></td>
+                <br></tr>
+            <tr>
+                <td><label>Username :</label></td>
+                <td><input class="form-control" type="text" name="username" required/></td>
+                <br></tr>
+            <tr>
+                <td><label>Password :</label></td>
+                <td><input class="form-control" type="password" name="password" required/></td>
+                <br></tr>
+            <tr>
+                <td><label>Food Menu :</label></td>
+            </tr>
+            <div id="menu">
+                <tr>
+                    <td><label>Item Name :</label></td>
+                    <td><input class="form-control" type="text" name="itemName" required/></td>
+                    <td><label>Price :</label></td>
+                    <td><input class="form-control" type="text" name="price" required/></td>
+                    <td><input class="btn btn-success" type="button" value="Add Item" onclick="addRow('registerMenu')"/>
+                    </td>
+                    <br>
+                </tr>
+            </div>
+        </table>
+        <table>
+            <tr>
+                <td><input class="form-group" type="checkbox" required/>
+                    <label>Agree terms and conditions</label></td>
+                <br></tr>
+            <td>
+                <button type="button" class="btn btn-primary" onclick="sendData()">Request for Registration</button>
+            </td>
+            </tr>
+        </table>
+    </form>
+</center>
+<script>
+    var form=document.getElementById("vendorRegister");
+
+function sendData() {
+
+  // collect the form data while iterating over the inputs
+  var data = {menu:[]};
+  var menu_data = {"itemName":[],"price":[]};
+
+  for (var i = 0, ii = form.length; i < ii; ++i) {
+    var input = form[i];
+
+    if (input.name == "itemName" || input.name == "price"){
+      if(input.name == "itemName"){
+      menu_data.itemName.push(input.value)
+       }
+      if(input.name == "price"){
+      menu_data.price.push(input.value)
+      }
+    } else if(input.name){
+      data[input.name] = input.value;
+    }
+  }
+    data.menu.push(menu_data);
+    console.log(data)
+  // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "vendorRegister", true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send(JSON.stringify(data));
+};
+
+var count = "1";
+  function addRow(in_tbl_name)
+  {
+    var tbody = document.getElementById(in_tbl_name).getElementsByTagName("TBODY")[0];
+    // create row
+    var row = document.createElement("TR");
+    // create table cell 1
+    var td1 = document.createElement("TD")
+    var strHtml1 = '<label>Item Name :</label>';
+    td1.innerHTML = strHtml1.replace(/!count!/g,count);
+    // create table cell 2
+    var td2 = document.createElement("TD")
+    var strHtml2 = '<input class="form-control" type="text" name="itemName" required/>';
+    td2.innerHTML = strHtml2.replace(/!count!/g,count);
+    // create table cell 3
+    var td3 = document.createElement("TD")
+    var strHtml3 = '<label>Price :</label>';
+    td3.innerHTML = strHtml3.replace(/!count!/g,count);
+    // create table cell 4
+    var td4 = document.createElement("TD")
+    var strHtml4 = '<input class="form-control" type="text" name="price" required/>';
+    td4.innerHTML = strHtml4.replace(/!count!/g,count);
+    // create table cell 5
+    var td5 = document.createElement("TD")
+    var strHtml5 = '<input class="btn btn-danger" type="button" value="Remove Item" onclick="delRow()"/>';
+    td5.innerHTML = strHtml5.replace(/!count!/g,count);
+    // append data to row
+    row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td3);
+    row.appendChild(td4);
+    row.appendChild(td5);
+    // add to count variable
+    count = parseInt(count) + 1;
+    // append row to table
+    tbody.appendChild(row);
+  }
+  function delRow()
+  {
+    var current = window.event.srcElement;
+    //here we will delete the line
+    while ( (current = current.parentElement)  && current.tagName !="TR");
+         current.parentElement.removeChild(current);
+  }
+
+
+</script>
+</body>
+</html>
