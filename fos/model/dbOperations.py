@@ -16,13 +16,14 @@ def addVendor(name, contact, email, username, password, isActive, menu):
 
 def addMenu(menu):
     with con:
-        cur = con.cursor()
-        vendor_id = cur.execute("SELECT VENDOR_ID FROM VENDORS ORDER BY VENDOR_ID DESC LIMIT 1")
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("SELECT VENDOR_ID FROM VENDORS ORDER BY VENDOR_ID DESC LIMIT 1")
+        vendorId=cur.fetchone()
         for item in menu:
             i=0
             for itemName in menu[0]['itemName']:
                 cur.execute("INSERT INTO MENU(vendor_id,item_name,price) values (%s,%s,%s)",
-                        (vendor_id, itemName, item['price'][i]))
+                        (vendorId['VENDOR_ID'], itemName, item['price'][i]))
                 i=i+1
 
 def getAllAdminsFromDb():
