@@ -4,7 +4,12 @@ import web
 import loginService
 
 urls = (
-  '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister'
+  '/vendorLogin', 'VendorLogin',
+  '/vendorRegister','VendorRegister',
+  '/customerLogin', 'CustomerLogin',
+  '/customerRegister', 'CustomerRegister',
+  '/adminLogin', 'AdminLogin',
+  '/registerCustomer', 'RegisterCustomer'
 )
 
 app = web.application(urls, globals())
@@ -31,6 +36,30 @@ class VendorLogin(object):
             return render.vendorHome(session = sessionData)
         else:
             return "Invalid Credentials"
+
+class CustomerLogin(object):
+    def GET(self):
+        return render.customerLogin()
+
+    def POST(self):
+        form = web.input(username=None, password=None)
+        if loginService.authenticateCustomer(form.username, form.password):
+            sessionData['username'] = form.username
+            return render.customerHome(session = sessionData)
+        else:
+            return "Invalid credentials"
+
+class AdminLogin(object):
+    def GET(self):
+        return render.adminLogin()
+
+    def POST(self):
+        form = web.input(username=None, password=None)
+        if loginService.authenticateAdmin(form.username, form.password):
+            sessionData['username'] = form.username
+            return render.adminHome(session = sessionData)
+        else:
+            return "Invalid credentials"
 
 
 if __name__ == "__main__":

@@ -20,3 +20,15 @@ def authenticateVendor(username,password):
                 isValid = True
 
     return isValid
+
+def authenticateCustomer(username,password):
+    customers =fosdb.getAllCustomersFromDb()
+    isValid = False
+    for customer in customers:
+        if username == customer["username"] and password == customer["password"]:
+            if customer["isRegistered"]:
+                isValid = True
+
+    return isValid
+
+
