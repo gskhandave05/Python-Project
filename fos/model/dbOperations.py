@@ -5,16 +5,26 @@ def connectToDb():
     return mdb.connect('localhost', 'fos', 'root', 'fosdb')
 
 def addVendor(name, contact, email, username, password, isActive, menu):
-    con = connectToDb()
     with con:
         cur = con.cursor()
         cur.execute(
-            "INSERT INTO VENDORS(name,contact,email,username, password,isActive) VALUES (%s,%s,%s,%s,%s,%d)",
+            "INSERT INTO VENDORS(name,contact,email,username, password,isActive) VALUES (%s,%s,%s,%s,%s,%s)",
             (name, contact, email,username,password,isActive))
-        vendor_id = cur.execute("SELECT VENDOR_ID FROM VENDORS ORDER BY VENDOR_ID DESC LIMIT 1")
-        for menuItem in menu:
-            cur.execute("INSERT INTO MENU(vendor_id,item_name,price) values (%d,%s,%f)",
-                        (vendor_id, menuItem.name, menuItem.price))
+
+    addMenu(menu)
+
+
+def addMenu(menu):
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("SELECT VENDOR_ID FROM VENDORS ORDER BY VENDOR_ID DESC LIMIT 1")
+        vendorId=cur.fetchone()
+        for item in menu:
+            i=0
+            for itemName in menu[0]['itemName']:
+                cur.execute("INSERT INTO MENU(vendor_id,item_name,price) values (%s,%s,%s)",
+                        (vendorId['VENDOR_ID'], itemName, item['price'][i]))
+                i=i+1
 
 def getAllAdminsFromDb():
     con = connectToDb()
@@ -31,3 +41,9 @@ def getAllVendorsFromDb():
         cur.execute("Select * from vendors")
         vendorsList = cur.fetchall()
         return vendorsList
+
+def getVendorByUsername(username):
+    with con:
+        cur = con.cursor()
+        vendor = cur.execute("SELECT * FROM VENDORS WHERE USERNAME = %s",(username))
+        return vendor

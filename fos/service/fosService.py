@@ -2,9 +2,12 @@ __author__ = 'khandave_g'
 
 import web
 import loginService
+import json
+import fos.model.dbOperations as fosdb
 
 urls = (
-  '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister'
+  '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister',
+    '/logout','Logout'
 )
 
 app = web.application(urls, globals())
@@ -32,6 +35,21 @@ class VendorLogin(object):
         else:
             return "Invalid Credentials"
 
+class VendorRegister(object):
+    def GET(self):
+        return render.RegisterVendor()
+
+    def POST(self):
+        rForm = web.data()
+        data = json.loads(rForm)
+        fosdb.addVendor(data['name'],data['contact'],data['email'],data['username'],data['password'],"0",data['menu'])
+
+
+class Logout(object):
+    def GET(self):
+        session.logged_in = False
+        session.kill()
+        raise web.seeother('/')
 
 if __name__ == "__main__":
     app.run()
