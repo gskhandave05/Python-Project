@@ -43,25 +43,6 @@ class VendorRegister(object):
         rForm = web.data()
         data = json.loads(rForm)
         fosdb.addVendor(data['name'],data['contact'],data['email'],data['username'],data['password'],"0",data['menu'])
-        print "Item name :",data['menu'][0]['itemName'][0]
-        print "price :",data['menu'][0]['price'][0]
-        print data['menu'][0]
-        print data
-        menu = data['menu']
-
-        for price in menu:
-            i=0
-            for item in menu[0]['itemName']:
-                print item
-                print price['price'][i]
-                i=i+1
-
-
-
-
-
-
-
 
 
 class Logout(object):
