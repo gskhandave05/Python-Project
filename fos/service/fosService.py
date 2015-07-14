@@ -7,7 +7,7 @@ import fos.model.dbOperations as fosdb
 
 urls = (
   '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister',
-    '/logout','Logout'
+    '/logout','Logout','/vendorProfile','VendorProfile','/updateMenu','UpdateMenu'
 )
 
 app = web.application(urls, globals())
@@ -30,20 +30,45 @@ class VendorLogin(object):
     def POST(self):
         form = web.input(username=None, password=None)
         if loginService.authenticateVendor(form.username,form.password):
-            sessionData['username'] = form.username
+            vendor = fosdb.getRegisteredVendor(form.username,form.password)
+            sessionData['username'] = vendor[4]
+            sessionData['userId'] = vendor[0]
             return render.vendorHome(session = sessionData)
         else:
             return "Invalid Credentials"
 
 class VendorRegister(object):
     def GET(self):
-        return render.RegisterVendor()
+        return render.registerVendor()
 
     def POST(self):
         rForm = web.data()
         data = json.loads(rForm)
         fosdb.addVendor(data['name'],data['contact'],data['email'],data['username'],data['password'],"0",data['menu'])
 
+class VendorProfile(object):
+    def GET(self):
+        vendorId = sessionData['userId']
+        vendorProfile = fosdb.getVendorByVendorId(vendorId)
+        return render.vendorProfile(profile = vendorProfile)
+
+    def POST(self):
+        rForm = web.data()
+        data = json.loads(rForm)
+        print data
+        fosdb.updateVendorProfile(data['name'],data['contact'],data['email'],data['username'],data['password'],data['vendorId'])
+
+class UpdateMenu(object):
+    def GET(self):
+        vendorId = sessionData['userId']
+        vendorMenu = fosdb.getMenuByVendorId(vendorId)
+        return render.vendorMenu(menu = vendorMenu)
+
+    def POST(self):
+        rForm = web.data()
+        data = json.loads(rForm)
+        print data
+        fosdb.updateVendorProfile(data['name'],data['contact'],data['email'],data['username'],data['password'],data['vendorId'])
 
 class Logout(object):
     def GET(self):

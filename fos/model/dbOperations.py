@@ -13,7 +13,6 @@ def addVendor(name, contact, email, username, password, isActive, menu):
 
     addMenu(menu)
 
-
 def addMenu(menu):
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
@@ -40,8 +39,31 @@ def getAllVendorsFromDb():
         vendorsList = cur.fetchall()
         return vendorsList
 
-def getVendorByUsername(username):
+def getRegisteredVendor(username,password):
     with con:
         cur = con.cursor()
-        vendor = cur.execute("SELECT * FROM VENDORS WHERE USERNAME = %s",(username))
+        cur.execute("SELECT * FROM VENDORS WHERE USERNAME = %s and password = %s",(username,password))
+        vendor = cur.fetchone()
         return vendor
+
+def getVendorByVendorId(vendorId):
+     with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM VENDORS WHERE vendor_id = %s",(vendorId))
+        vendor = cur.fetchone()
+        return vendor
+
+def updateVendorProfile(name, contact, email, username, password,vendorId):
+    with con:
+        cur = con.cursor()
+        cur.execute(
+            "UPDATE vendors SET name = %s, contact = %s, email = %s, username = %s,password = %s where vendor_id = %s",
+            (name, contact, email,username,password,vendorId))
+
+def getMenuByVendorId(vendorId):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM MENU WHERE vendor_id = %s",(vendorId))
+        menu = cur.fetchall()
+        print menu
+        return menu

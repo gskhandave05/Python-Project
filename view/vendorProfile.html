@@ -1,0 +1,245 @@
+$def with (profile)
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bibliothek</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/squadfree/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css">
+
+    <!-- Fonts -->
+    <link href="static/squadfree/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
+    <link href="static/squadfree/css/animate.css" rel="stylesheet"/>
+    <!-- Squad theme CSS -->
+    <link href="static/squadfree/css/style.css" rel="stylesheet">
+    <link href="static/squadfree/color/default.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+<!-- Preloader -->
+<div id="preloader">
+    <div id="load"></div>
+</div>
+
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand"
+               href="#homePage">
+                <h1>Food Ordering System</h1>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div
+                class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Section: intro -->
+<section id="intro" class="intro">
+
+    <div class="slogan">
+        <h2>
+            View <span class="text_color">Profile</span>
+        </h2>
+
+    </div>
+    <div class="page-scroll">
+        <a href="#Search" class="btn btn-circle"> <i
+                class="fa fa-angle-double-down animated"></i>
+        </a>
+    </div>
+</section>
+<!-- /Section: intro -->
+
+<!-- Section: Search -->
+<section id="Search" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Your Profile</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form name="Register" id="vendorRegister"
+              class="form-horizontal" role="form"
+              data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+              data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+              data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+            <div class="form-group">
+
+                <div class="col-sm-10"></div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">User Id:</label>
+
+                <div class="col-xs-6">
+                    <input type=text name="vendorId" class="form-control"
+                           value="$profile[0]" disabled="disabled">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Name:<span>*</span></label>
+
+                <div class="col-xs-6">
+                    <input type=text name="name" class="form-control"
+                           placeholder="Enter name" size="20"
+                           value="$profile[1]" disabled="disabled">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Email:</label>
+
+                <div class="col-xs-6">
+                    <input type=email name="email" class="form-control"
+                           placeholder="Enter Email" value="$profile[3]">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Contact
+                    No.:</label>
+
+                <div class="col-xs-6">
+                    <input type=text name="contact" class="form-control"
+                           placeholder="Enter Contactno."
+                           value="$profile[2]">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Username:</label>
+
+                <div class="col-xs-6">
+                    <input type=text name="username" class="form-control"
+                           placeholder="Enter username" maxlength="50"
+                           value="$profile[4]">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Password:</label>
+
+                <div class="col-xs-6">
+                    <input type="password" name="password" class="form-control"
+                           placeholder="Enter password" maxlength="50"
+                           value="$profile[5]">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" onclick="sendData()" class="btn btn-default">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+var form=document.getElementById("vendorRegister");
+
+function sendData() {
+
+  // collect the form data while iterating over the inputs
+  var data = {menu:[]};
+  var menu_data = {"itemName":[],"price":[]};
+
+  for (var i = 0, ii = form.length; i < ii; ++i) {
+    var input = form[i];
+
+    if (input.name == "itemName" || input.name == "price"){
+      if(input.name == "itemName"){
+      menu_data.itemName.push(input.value)
+       }
+      if(input.name == "price"){
+      menu_data.price.push(input.value)
+      }
+    } else if(input.name){
+      data[input.name] = input.value;
+    }
+  }
+    data.menu.push(menu_data);
+    console.log(data)
+  // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "vendorProfile", true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send(JSON.stringify(data));
+  alert("Profile Updated Successfully!!")
+  window.history.back();
+};
+
+    </script>
+
+
+</section>
+<!-- /Section: Search -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="wow shake" data-wow-delay="0.4s">
+                    <div class="page-scroll marginbot-30">
+                        <a href="#intro" id="totop" class="btn btn-circle"> <i
+                                class="fa fa-angle-double-up animated"></i>
+                        </a>
+                    </div>
+                </div>
+                <p>&copy;Copyright 2014 - FOS. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Core JavaScript Files -->
+<script src="static/squadfree/js/jquery.min.js"></script>
+<script src="static/squadfree/js/bootstrap.min.js"></script>
+<script src="static/squadfree/js/jquery.easing.min.js"></script>
+<script src="static/squadfree/js/jquery.scrollTo.js"></script>
+<script src="static/squadfree/js/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="static/squadfree/js/custom.js"></script>
+
+</body>
+
+</html>
