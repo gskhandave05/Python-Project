@@ -11,7 +11,8 @@ urls = (
   '/customerLogin', 'CustomerLogin',
   '/adminLogin', 'AdminLogin',
   '/registerCustomer', 'RegisterCustomer',
-  '/customerProfile','CustomerProfile'
+  '/customerProfile','CustomerProfile',
+  '/customerAddress','CustomerAddress'
 )
 
 app = web.application(urls, globals())
