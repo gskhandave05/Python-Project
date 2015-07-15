@@ -74,7 +74,8 @@ class AdminLogin(object):
         form = web.input(username=None, password=None)
         if loginService.authenticateAdmin(form.username, form.password):
             sessionData['username'] = form.username
-            return render.adminHome(session = sessionData)
+            vendors = fosdb.getAllVendorsFromDb()
+            return render.adminHome(session = sessionData, vendorData = vendors)
         else:
             return "Invalid credentials"
 
