@@ -2,12 +2,13 @@ __author__ = 'khandave_g'
 
 import web
 import loginService
+import json
+import fos.model.dbOperations as fosdb
 
 urls = (
   '/vendorLogin', 'VendorLogin',
   '/vendorRegister','VendorRegister',
   '/customerLogin', 'CustomerLogin',
-  '/customerRegister', 'CustomerRegister',
   '/adminLogin', 'AdminLogin',
   '/registerCustomer', 'RegisterCustomer'
 )
@@ -60,6 +61,20 @@ class AdminLogin(object):
             return render.adminHome(session = sessionData)
         else:
             return "Invalid credentials"
+
+class RegisterCustomer(object):
+    def GET(self):
+        print "Inside GET"
+        return render.customerRegisteration()
+
+    def POST(self):
+        print "inside post"
+        form = web.data()
+        data = json.loads(form)
+        print data
+        fosdb.addCustomer(data['name'],data['contact'],data['email'],"1",data['userName'],data['password'],
+                          data['flat_no'],data['building'],data['street'],data['area'],data['city'],data['state'],data['pincode'])
+        print "done!!"
 
 
 if __name__ == "__main__":
