@@ -105,11 +105,12 @@ $def with (menu)
                 <td>
                         <button class="btn btn-default" onclick="removeItem($c[1])">Remove</button>
                         &nbsp;&nbsp;
-                        <button class="btn btn-default" onclick="editItem($c[1])">Edit</button>
+                        <a class="btn btn-default" href="http://localhost:8080/editItem?buttonId=$c[1]">Edit</a>
                 </td>
                 </tr>
 
             </table>
+        <button class="btn btn-default" onclick="goBack()">Back</button>
     </div>
 </section>
 <footer>
@@ -163,6 +164,10 @@ function editItem(buttonId,e){
   xhr.send();
   alert("Edited Item sent")
   }
+
+function goBack() {
+            window.history.back();
+            }
 
 </script>
 </body>

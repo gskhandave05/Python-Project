@@ -8,7 +8,7 @@ import fos.model.dbOperations as fosdb
 urls = (
   '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister',
     '/logout','Logout','/vendorProfile','VendorProfile','/updateMenu','UpdateFoodMenu','/removeItem','RemoveItem',
-    '/editItem','EditItem'
+    '/editItem','EditItem','/addMoreFoodMenu','AddMoreFoodMenu'
 )
 
 app = web.application(urls, globals())
@@ -76,16 +76,24 @@ class EditItem(object):
     def GET(self):
         form = web.input(buttonId=None)
         itemCode = form.buttonId
-        print "Item Code is :",itemCode
         foodItem = fosdb.getItemByItemId(itemCode)
-        print foodItem
         return render.editFoodItem(foodItem = foodItem)
 
     def POST(self):
         rForm = web.data()
         data = json.loads(rForm)
-        print data
         fosdb.updateFoodItem(data['vendorId'],data['itemId'],data['itemName'],data['price'])
+
+class AddMoreFoodMenu(object):
+    def GET(self):
+        return render.addMoreFood()
+
+    def POST(self):
+        vendorId = sessionData['userId']
+        rForm = web.data()
+        data = json.loads(rForm)
+        fosdb.addMoreFoodByVendorId(data,vendorId)
+
 
 class Logout(object):
     def GET(self):

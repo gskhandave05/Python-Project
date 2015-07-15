@@ -198,7 +198,7 @@ function sendData() {
   // send the collected data as JSON
   xhr.send(JSON.stringify(data));
   alert("Food Item Updated Successfully!!")
-  window.history.back();
+  window.history.go(-2);
 }
 
 function goBack() {

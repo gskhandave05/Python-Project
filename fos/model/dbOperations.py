@@ -76,8 +76,8 @@ def updateFoodItem(vendorId,itemCode,itemName,price):
     with con:
         cur = con.cursor()
         cur.execute(
-            "UPDATE MENU SET vendor_id = %s, item_id = %s, item_name = %s, price = %s",
-            (vendorId,itemCode,itemName,price))
+            "UPDATE MENU SET vendor_id = %s, item_id = %s, item_name = %s, price = %s WHERE item_id=%s",
+            (vendorId,itemCode,itemName,price,itemCode))
 
 def getItemByItemId(itemCode):
     with con:
@@ -85,3 +85,12 @@ def getItemByItemId(itemCode):
         cur.execute("SELECT * FROM MENU WHERE item_id = %s",(itemCode))
         item = cur.fetchone()
         return item
+
+def addMoreFoodByVendorId(menu,vendorId):
+    with con:
+        cur = con.cursor()
+        i=0
+        for item in menu['itemName']:
+            cur.execute("INSERT INTO MENU(vendor_id,item_name,price) values (%s,%s,%s)",
+                        (vendorId, item, menu['price'][i]))
+            i=i+1

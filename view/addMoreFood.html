@@ -1,0 +1,248 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Food Ordering System</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/squadfree/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css">
+
+    <!-- Fonts -->
+    <link href="static/squadfree/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
+    <link href="static/squadfree/css/animate.css" rel="stylesheet"/>
+    <!-- Squad theme CSS -->
+    <link href="static/squadfree/css/style.css" rel="stylesheet">
+    <link href="static/squadfree/color/default.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+<!-- Preloader -->
+<div id="preloader">
+    <div id="load"></div>
+</div>
+
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand"
+               href="#homePage">
+                <h1>Food Ordering System</h1>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div
+                class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Section: intro -->
+<section id="intro" class="intro">
+
+    <div class="slogan">
+        <h2>
+            Add <span class="text_color">Food</span>
+        </h2>
+
+    </div>
+    <div class="page-scroll">
+        <a href="#Search" class="btn btn-circle"> <i
+                class="fa fa-angle-double-down animated"></i>
+        </a>
+    </div>
+</section>
+<!-- /Section: intro -->
+
+<!-- Section: Search -->
+<section id="Search" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Add More Food</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <center>
+            <form id="addMoreFood" class="form-horizontal">
+                <table id="registerMenu">
+                    <div id="menu">
+                        <tr>
+                            <div class="form-group">
+                                <td><label>Item Name :</label></td>
+                                <div class="col-xs-6">
+                                    <td><input class="form-control" type="text" name="itemName" required/></td>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <td><label>Price :</label></td>
+                                <div class="col-xs-6">
+                                    <td><input class="form-control" type="text" name="price" required/></td>
+                                    <td><input class="btn btn-success" type="button" value="Add Item"
+                                               onclick="addRow('registerMenu')"/>
+                                    </td>
+                                </div>
+                            </div>
+                            <br>
+                        </tr>
+                    </div>
+                </table>
+                <table>
+                    <tr>
+                        <div class="form-group">
+                            <td><input class="form-group" type="checkbox" required/></td>
+                            <div class="col-xs-6">
+                                <td><label>Agree terms and conditions</label></td>
+                            </div>
+                        </div>
+                        <br></tr>
+                    <td>
+                        <button type="button" class="btn btn-primary" onclick="sendData()">Add Menu</button>
+                    </td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </div>
+
+</section>
+<!-- /Section: Search -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="wow shake" data-wow-delay="0.4s">
+                    <div class="page-scroll marginbot-30">
+                        <a href="#intro" id="totop" class="btn btn-circle"> <i
+                                class="fa fa-angle-double-up animated"></i>
+                        </a>
+                    </div>
+                </div>
+                <p>&copy;Copyright 2014 - FOS. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Core JavaScript Files -->
+<script src="static/squadfree/js/jquery.min.js"></script>
+<script src="static/squadfree/js/bootstrap.min.js"></script>
+<script src="static/squadfree/js/jquery.easing.min.js"></script>
+<script src="static/squadfree/js/jquery.scrollTo.js"></script>
+<script src="static/squadfree/js/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="static/squadfree/js/custom.js"></script>
+<script>
+    var form=document.getElementById("addMoreFood");
+
+function sendData() {
+
+  // collect the form data while iterating over the inputs
+
+  var menu_data = {"itemName":[],"price":[]};
+
+  for (var i = 0, ii = form.length; i < ii; ++i) {
+    var input = form[i];
+
+    if (input.name == "itemName" || input.name == "price"){
+      if(input.name == "itemName"){
+      menu_data.itemName.push(input.value)
+       }
+      if(input.name == "price"){
+      menu_data.price.push(input.value)
+      }
+    }
+  }
+
+
+  // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "addMoreFoodMenu", true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send(JSON.stringify(menu_data));
+  alert("Request Sent Successfully!!")
+  window.history.back();
+};
+
+var count = "1";
+  function addRow(in_tbl_name)
+  {
+    var tbody = document.getElementById(in_tbl_name).getElementsByTagName("TBODY")[0];
+    // create row
+    var row = document.createElement("TR");
+    // create table cell 1
+    var td1 = document.createElement("TD")
+    var strHtml1 = '<label>Item Name :</label>';
+    td1.innerHTML = strHtml1.replace(/!count!/g,count);
+    // create table cell 2
+    var td2 = document.createElement("TD")
+    var strHtml2 = '<input class="form-control" type="text" name="itemName" required/>';
+    td2.innerHTML = strHtml2.replace(/!count!/g,count);
+    // create table cell 3
+    var td3 = document.createElement("TD")
+    var strHtml3 = '<label>Price :</label>';
+    td3.innerHTML = strHtml3.replace(/!count!/g,count);
+    // create table cell 4
+    var td4 = document.createElement("TD")
+    var strHtml4 = '<input class="form-control" type="text" name="price" required/>';
+    td4.innerHTML = strHtml4.replace(/!count!/g,count);
+    // create table cell 5
+    var td5 = document.createElement("TD")
+    var strHtml5 = '<input class="btn btn-danger" type="button" value="Remove Item" onclick="delRow()"/>';
+    td5.innerHTML = strHtml5.replace(/!count!/g,count);
+    // append data to row
+    row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td3);
+    row.appendChild(td4);
+    row.appendChild(td5);
+    // add to count variable
+    count = parseInt(count) + 1;
+    // append row to table
+    tbody.appendChild(row);
+  }
+  function delRow()
+  {
+    var current = window.event.srcElement;
+    //here we will delete the line
+    while ( (current = current.parentElement)  && current.tagName !="TR");
+         current.parentElement.removeChild(current);
+  }
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
