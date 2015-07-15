@@ -2,12 +2,10 @@ __author__ = 'khandave_g'
 
 import MySQLdb as mdb
 
-def connectToDb():
-    return mdb.connect('localhost', 'fos', 'root', 'fosDb')
+con = mdb.connect('localhost', 'fos', 'root', 'fosDb')
 
 
 def addVendor(name, contact, email, username, password, isActive, menu):
-    con = connectToDb()
     with con:
         cur = con.cursor()
         cur.execute(
@@ -21,7 +19,6 @@ def addVendor(name, contact, email, username, password, isActive, menu):
 
 
 def addCustomer(name, contact, email, isRegistered, username, password, flat_no, building, street, area, city, state, pincode):
-    con = connectToDb()
     with con:
         cur = con.cursor()
         cur.execute("INSERT INTO ADDRESSES(flat_no, building, street, area, city, state, pincode) VALUES (%s,%s,%s,%s,%s,%s,%s)",
@@ -35,7 +32,6 @@ def addCustomer(name, contact, email, isRegistered, username, password, flat_no,
 
 
 def getAllAdminsFromDb():
-    con = connectToDb()
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("Select * from admins")
@@ -44,7 +40,6 @@ def getAllAdminsFromDb():
 
 
 def getAllVendorsFromDb():
-    con = connectToDb()
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("Select * from vendors")
@@ -53,9 +48,29 @@ def getAllVendorsFromDb():
 
 
 def getAllCustomersFromDb():
-    con = connectToDb()
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("Select * from customers")
         customerList = cur.fetchall()
         return customerList
+
+def getRegisteredCustomer(username,password):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM CUSTOMERS WHERE USERNAME = %s AND PASSWORD = %s",(username,password))
+        customer = cur.fetchone()
+        print customer
+        return customer
+
+def getCustomerByCustomerID(customerID):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM CUSTOMERS WHERE cust_id = %s",(customerID))
+        customer = cur.fetchone()
+        return customer
+
+def updateCustomerProfile(name,contact,email,username,password,customerId):
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("UPDATE CUSTOMERS SET name=%s, contact=%s, email=%s, username=%s, password=%s WHERE cust_id = %s",
+                    (name,contact,email,username,password,customerId))

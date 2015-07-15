@@ -10,7 +10,8 @@ urls = (
   '/vendorRegister','VendorRegister',
   '/customerLogin', 'CustomerLogin',
   '/adminLogin', 'AdminLogin',
-  '/registerCustomer', 'RegisterCustomer'
+  '/registerCustomer', 'RegisterCustomer',
+  '/customerProfile','CustomerProfile'
 )
 
 app = web.application(urls, globals())
@@ -45,7 +46,10 @@ class CustomerLogin(object):
     def POST(self):
         form = web.input(username=None, password=None)
         if loginService.authenticateCustomer(form.username, form.password):
-            sessionData['username'] = form.username
+            customer = fosdb.getRegisteredCustomer(form.username,form.password)
+            print customer
+            sessionData['username'] = customer[6]
+            sessionData['customerID'] = customer[0]
             return render.customerHome(session = sessionData)
         else:
             return "Invalid credentials"
@@ -64,6 +68,19 @@ class RegisterCustomer(object):
         fosdb.addCustomer(data['name'],data['contact'],data['email'],"1",data['userName'],data['password'],
                           data['flat_no'],data['building'],data['street'],data['area'],data['city'],data['state'],data['pincode'])
         print "done!!"
+
+class CustomerProfile(object):
+    def GET(self):
+        print "inside customerProfile GET"
+        customerID = sessionData['customerID']
+        customerProfile = fosdb.getCustomerByCustomerID(customerID)
+        print customerID
+        return render.customerProfile(profile = customerProfile)
+
+    def POST(self):
+        form = web.data()
+        data = json.loads(form)
+        fosdb.updateCustomerProfile(data['name'],data['contact'],data['email'],data['username'],data['password'],data['customerId'])
 
 
 class AdminLogin(object):
