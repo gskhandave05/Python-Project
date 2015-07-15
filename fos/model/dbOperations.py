@@ -65,5 +65,23 @@ def getMenuByVendorId(vendorId):
         cur = con.cursor()
         cur.execute("SELECT * FROM MENU WHERE vendor_id = %s",(vendorId))
         menu = cur.fetchall()
-        print menu
         return menu
+
+def removeFoodItem(itemCode):
+    with con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM MENU WHERE ITEM_ID = %s",(itemCode))
+
+def updateFoodItem(vendorId,itemCode,itemName,price):
+    with con:
+        cur = con.cursor()
+        cur.execute(
+            "UPDATE MENU SET vendor_id = %s, item_id = %s, item_name = %s, price = %s",
+            (vendorId,itemCode,itemName,price))
+
+def getItemByItemId(itemCode):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM MENU WHERE item_id = %s",(itemCode))
+        item = cur.fetchone()
+        return item

@@ -1,0 +1,170 @@
+$def with (menu)
+<html lang="en">
+
+<head>
+    <title>Food Ordering System</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/squadfree/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css">
+
+    <!-- Fonts -->
+    <link href="static/squadfree/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
+    <link href="static/squadfree/css/animate.css" rel="stylesheet"/>
+    <!-- Squad theme CSS -->
+    <link href="static/squadfree/css/style.css" rel="stylesheet">
+    <link href="static/squadfree/color/default.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+<!-- Preloader -->
+<div id="preloader">
+    <div id="load"></div>
+</div>
+
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand"
+               href="#homePage">
+                <h1>Food Ordering System</h1>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div
+                class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+            </ul>
+
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Section: intro -->
+<section id="intro" class="intro">
+
+    <div class="slogan">
+        <h2>
+            Food <span class="text_color">Menu</span>
+        </h2>
+
+    </div>
+    <div class="page-scroll">
+        <a href="#Search" class="btn btn-circle"> <i
+                class="fa fa-angle-double-down animated"></i>
+        </a>
+    </div>
+</section>
+<!-- /Section: intro -->
+
+<!-- Section: Search -->
+<section id="Search" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Food Menu</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+            <table border="1" class="table table-condensed">
+
+                <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Vendor Id</th>
+                    <th>Item Code</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th colspan="4">Operations</th>
+                </tr>
+                </thead>
+                $for c in menu:
+                <tr class="$loop.parity">
+                    <td>$loop.index</td>
+                    $for item in c:
+                    <td class="$loop.parity">$item</td>
+                <td>
+                        <button class="btn btn-default" onclick="removeItem($c[1])">Remove</button>
+                        &nbsp;&nbsp;
+                        <button class="btn btn-default" onclick="editItem($c[1])">Edit</button>
+                </td>
+                </tr>
+
+            </table>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="wow shake" data-wow-delay="0.4s">
+                    <div class="page-scroll marginbot-30">
+                        <a href="#intro" id="totop" class="btn btn-circle"> <i
+                                class="fa fa-angle-double-up animated"></i>
+                        </a>
+                    </div>
+                </div>
+                <p>&copy;Copyright 2014 - FOS. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Core JavaScript Files -->
+<script src="static/squadfree/js/jquery.min.js"></script>
+<script src="static/squadfree/js/bootstrap.min.js"></script>
+<script src="static/squadfree/js/jquery.easing.min.js"></script>
+<script src="static/squadfree/js/jquery.scrollTo.js"></script>
+<script src="static/squadfree/js/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="static/squadfree/js/custom.js"></script>
+<script>
+
+function removeItem(buttonId){
+    // construct an HTTP request
+   // alert(buttonId);
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "removeItem", true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send("buttonId="+buttonId);
+  alert("Item Removed Successfully!!")
+  window.location.reload();
+  }
+
+function editItem(buttonId,e){
+
+    // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "editItem?buttonId="+buttonId, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send();
+  alert("Edited Item sent")
+  }
+
+</script>
+</body>
+
+</html>

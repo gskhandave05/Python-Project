@@ -7,7 +7,8 @@ import fos.model.dbOperations as fosdb
 
 urls = (
   '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister',
-    '/logout','Logout','/vendorProfile','VendorProfile','/updateMenu','UpdateMenu'
+    '/logout','Logout','/vendorProfile','VendorProfile','/updateMenu','UpdateFoodMenu','/removeItem','RemoveItem',
+    '/editItem','EditItem'
 )
 
 app = web.application(urls, globals())
@@ -58,17 +59,33 @@ class VendorProfile(object):
         print data
         fosdb.updateVendorProfile(data['name'],data['contact'],data['email'],data['username'],data['password'],data['vendorId'])
 
-class UpdateMenu(object):
+class UpdateFoodMenu(object):
     def GET(self):
         vendorId = sessionData['userId']
         vendorMenu = fosdb.getMenuByVendorId(vendorId)
-        return render.vendorMenu(menu = vendorMenu)
+        return render.vendorFoodMenu(menu = vendorMenu)
+
+class RemoveItem(object):
+    def POST(self):
+        form = web.input(buttonId=None)
+        itemCode = form.buttonId
+        print (itemCode)
+        fosdb.removeFoodItem(itemCode)
+
+class EditItem(object):
+    def GET(self):
+        form = web.input(buttonId=None)
+        itemCode = form.buttonId
+        print "Item Code is :",itemCode
+        foodItem = fosdb.getItemByItemId(itemCode)
+        print foodItem
+        return render.editFoodItem(foodItem = foodItem)
 
     def POST(self):
         rForm = web.data()
         data = json.loads(rForm)
         print data
-        fosdb.updateVendorProfile(data['name'],data['contact'],data['email'],data['username'],data['password'],data['vendorId'])
+        fosdb.updateFoodItem(data['vendorId'],data['itemId'],data['itemName'],data['price'])
 
 class Logout(object):
     def GET(self):

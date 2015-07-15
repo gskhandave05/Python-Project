@@ -1,11 +1,7 @@
-$def with (profile)
+$def with (foodItem)
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Food Ordering System</title>
 
@@ -59,7 +55,7 @@ $def with (profile)
 
     <div class="slogan">
         <h2>
-            View <span class="text_color">Profile</span>
+            Edit <span class="text_color">Item</span>
         </h2>
 
     </div>
@@ -79,7 +75,7 @@ $def with (profile)
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h2>Your Profile</h2>
+                            <h2>Your Item</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>
@@ -90,7 +86,7 @@ $def with (profile)
     </div>
 
     <div class="container">
-        <form name="Register" id="vendorRegister"
+        <form name="Register" id="foodToEdit"
               class="form-horizontal" role="form"
               data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
               data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
@@ -102,67 +98,42 @@ $def with (profile)
 
 
             <div class="form-group">
-                <label class="control-label col-sm-2">User Id:</label>
+                <label class="control-label col-sm-2">Vendor Id:</label>
 
                 <div class="col-xs-6">
                     <input type=text name="vendorId" class="form-control"
-                           value="$profile[0]" disabled="disabled">
+                           value="$foodItem[0]" disabled="disabled">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">Name:<span>*</span></label>
+                <label class="control-label col-sm-2">Item Code:</label>
 
                 <div class="col-xs-6">
-                    <input type=text name="name" class="form-control"
-                           placeholder="Enter name" size="20"
-                           value="$profile[1]" disabled="disabled">
+                    <input type=text name="itemId" class="form-control"
+                           value="$foodItem[1]" disabled="disabled">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">Email:</label>
+                <label class="control-label col-sm-2">Item Name:<span>*</span></label>
 
                 <div class="col-xs-6">
-                    <input type=email name="email" class="form-control"
-                           placeholder="Enter Email" value="$profile[3]">
+                    <input type=text name="itemName" class="form-control"
+                           placeholder="Enter item name" size="20"
+                           value="$foodItem[2]">
                 </div>
             </div>
-
 
             <div class="form-group">
-                <label class="control-label col-sm-2">Contact
-                    No.:</label>
+                <label class="control-label col-sm-2">Price:<span>*</span></label>
 
                 <div class="col-xs-6">
-                    <input type=text name="contact" class="form-control"
-                           placeholder="Enter Contactno."
-                           value="$profile[2]">
+                    <input type=text name="price" class="form-control"
+                           placeholder="Enter price" size="20"
+                           value="$foodItem[3]">
                 </div>
             </div>
-
-
-            <div class="form-group">
-                <label class="control-label col-sm-2">Username:</label>
-
-                <div class="col-xs-6">
-                    <input type=text name="username" class="form-control"
-                           placeholder="Enter username" maxlength="50"
-                           value="$profile[4]">
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label class="control-label col-sm-2">Password:</label>
-
-                <div class="col-xs-6">
-                    <input type="password" name="password" class="form-control"
-                           placeholder="Enter password" maxlength="50"
-                           value="$profile[5]">
-                </div>
-            </div>
-
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -172,49 +143,6 @@ $def with (profile)
             </div>
         </form>
     </div>
-
-    <script>
-
-var form=document.getElementById("vendorRegister");
-
-function sendData() {
-
-  // collect the form data while iterating over the inputs
-  var data = {menu:[]};
-  var menu_data = {"itemName":[],"price":[]};
-
-  for (var i = 0, ii = form.length; i < ii; ++i) {
-    var input = form[i];
-
-    if (input.name == "itemName" || input.name == "price"){
-      if(input.name == "itemName"){
-      menu_data.itemName.push(input.value)
-       }
-      if(input.name == "price"){
-      menu_data.price.push(input.value)
-      }
-    } else if(input.name){
-      data[input.name] = input.value;
-    }
-  }
-    data.menu.push(menu_data);
-    console.log(data)
-  // construct an HTTP request
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "vendorProfile", true);
-  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-  // send the collected data as JSON
-  xhr.send(JSON.stringify(data));
-  alert("Profile Updated Successfully!!")
-  window.history.back();
-}
-
-function goBack() {
-            window.history.back();
-            }
-    </script>
-
 
 </section>
 <!-- /Section: Search -->
@@ -244,6 +172,39 @@ function goBack() {
 <!-- Custom Theme JavaScript -->
 <script src="static/squadfree/js/custom.js"></script>
 
-</body>
+<script>
 
+var form=document.getElementById("foodToEdit");
+
+function sendData() {
+
+  // collect the form data while iterating over the inputs
+  var data = {};
+
+
+  for (var i = 0, ii = form.length; i < ii; ++i) {
+    var input = form[i];
+
+    if(input.name){
+      data[input.name] = input.value;
+    }
+  }
+    console.log(data)
+  // construct an HTTP request
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "editItem", true);
+  xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+  // send the collected data as JSON
+  xhr.send(JSON.stringify(data));
+  alert("Food Item Updated Successfully!!")
+  window.history.back();
+}
+
+function goBack() {
+            window.history.back();
+            }
+
+</script>
+</body>
 </html>
