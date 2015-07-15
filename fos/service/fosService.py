@@ -50,17 +50,6 @@ class CustomerLogin(object):
         else:
             return "Invalid credentials"
 
-class AdminLogin(object):
-    def GET(self):
-        return render.adminLogin()
-
-    def POST(self):
-        form = web.input(username=None, password=None)
-        if loginService.authenticateAdmin(form.username, form.password):
-            sessionData['username'] = form.username
-            return render.adminHome(session = sessionData)
-        else:
-            return "Invalid credentials"
 
 class RegisterCustomer(object):
     def GET(self):
@@ -75,6 +64,19 @@ class RegisterCustomer(object):
         fosdb.addCustomer(data['name'],data['contact'],data['email'],"1",data['userName'],data['password'],
                           data['flat_no'],data['building'],data['street'],data['area'],data['city'],data['state'],data['pincode'])
         print "done!!"
+
+
+class AdminLogin(object):
+    def GET(self):
+        return render.adminLogin()
+
+    def POST(self):
+        form = web.input(username=None, password=None)
+        if loginService.authenticateAdmin(form.username, form.password):
+            sessionData['username'] = form.username
+            return render.adminHome(session = sessionData)
+        else:
+            return "Invalid credentials"
 
 
 if __name__ == "__main__":
