@@ -82,6 +82,17 @@ class CustomerProfile(object):
         data = json.loads(form)
         fosdb.updateCustomerProfile(data['name'],data['contact'],data['email'],data['username'],data['password'],data['customerId'])
 
+class CustomerAddress(object):
+    def GET(self):
+        customerID = sessionData['customerID']
+        customerAddress = fosdb.getAddressByCustomerId(customerID)
+        return render.customerAddress(address = customerAddress)
+
+    def POST(self):
+        form = web.data()
+        data = json.loads(form)
+        fosdb.updateAddress(data['flat_no'],data['building'],data['street'],data['area'],data['city'],data['state'],data['pincode'],data['address_id'])
+
 
 class AdminLogin(object):
     def GET(self):

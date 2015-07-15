@@ -69,8 +69,26 @@ def getCustomerByCustomerID(customerID):
         customer = cur.fetchone()
         return customer
 
+
 def updateCustomerProfile(name,contact,email,username,password,customerId):
     with con:
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("UPDATE CUSTOMERS SET name=%s, contact=%s, email=%s, username=%s, password=%s WHERE cust_id = %s",
                     (name,contact,email,username,password,customerId))
+
+
+def getAddressByCustomerId(customerID):
+    with con:
+        cur = con.cursor()
+        cur.execute(
+            "SELECT ADDRESSES.* FROM ADDRESSES JOIN CUSTOMERS ON ADDRESSES.address_id = CUSTOMERS.address_id WHERE CUSTOMERS.cust_id = %s",
+            (customerID))
+        address = cur.fetchone()
+        return address
+
+
+def updateAddress(flat_no,building,street,area,city,state,pincode,addressId):
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("UPDATE ADDRESSES SET flat_no=%s, building=%s, street=%s, area=%s, city=%s, state=%s, pincode=%s WHERE address_id=%s",
+                    (flat_no,building,street,area,city,state,pincode,addressId))
