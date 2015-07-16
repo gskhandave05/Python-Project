@@ -12,7 +12,8 @@ urls = (
   '/adminLogin', 'AdminLogin',
   '/registerCustomer', 'RegisterCustomer',
   '/customerProfile','CustomerProfile',
-  '/customerAddress','CustomerAddress'
+  '/customerAddress','CustomerAddress',
+  '/placeOrder','PlaceOrder'
 )
 
 app = web.application(urls, globals())
@@ -93,6 +94,7 @@ class CustomerAddress(object):
         form = web.data()
         data = json.loads(form)
         fosdb.updateAddress(data['flat_no'],data['building'],data['street'],data['area'],data['city'],data['state'],data['pincode'],data['address_id'])
+
 
 
 class AdminLogin(object):
