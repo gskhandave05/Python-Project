@@ -92,3 +92,17 @@ def updateAddress(flat_no,building,street,area,city,state,pincode,addressId):
         cur = con.cursor(mdb.cursors.DictCursor)
         cur.execute("UPDATE ADDRESSES SET flat_no=%s, building=%s, street=%s, area=%s, city=%s, state=%s, pincode=%s WHERE address_id=%s",
                     (flat_no,building,street,area,city,state,pincode,addressId))
+
+def getAllVendorsByCity(city):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT vendor_id,name,contact FROM VENDORS WHERE city=%s AND isActive=1",(city))
+        vendors = cur.fetchall()
+        return vendors
+
+def getMenuByVendorId(vendorId):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT item_id,item_name,price FROM MENU WHERE vendor_id = %s", (vendorId))
+        menu = cur.fetchall()
+        return menu

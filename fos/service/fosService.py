@@ -13,7 +13,8 @@ urls = (
   '/registerCustomer', 'RegisterCustomer',
   '/customerProfile','CustomerProfile',
   '/customerAddress','CustomerAddress',
-  '/placeOrder','PlaceOrder'
+  '/restaurantList','RestaurantList',
+  '/foodMenu','FoodMenu'
 )
 
 app = web.application(urls, globals())
@@ -95,7 +96,21 @@ class CustomerAddress(object):
         data = json.loads(form)
         fosdb.updateAddress(data['flat_no'],data['building'],data['street'],data['area'],data['city'],data['state'],data['pincode'],data['address_id'])
 
+class RestaurantList(object):
+    def POST(self):
+        # return vendors list acc. to city
+        form = web.input(city=None)
+        city = form.city
+        vendors = fosdb.getAllVendorsByCity(city)
+        return render.restaurantsList(restaurants = vendors)
 
+class FoodMenu(object):
+    def GET(self):
+        form = web.input(asdf = None)
+        vendorId = form.asdf
+        menu = fosdb.getMenuByVendorId(vendorId)
+        print menu
+        return render.foodMenu(menu = menu)
 
 class AdminLogin(object):
     def GET(self):
