@@ -2,7 +2,7 @@ __author__ = 'khandave_g'
 
 import MySQLdb as mdb
 
-con = mdb.connect('localhost', 'fos', 'root', 'fosDb')
+con = mdb.connect('10.20.1.50', 'fos', 'root', 'fosDb')
 
 
 def addVendor(name, contact, email, username, password, isActive, menu):
