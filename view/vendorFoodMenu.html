@@ -85,12 +85,11 @@ $def with (menu)
         </div>
     </div>
     <div class="container">
-            <table border="1" class="table table-condensed">
+            <table class="table table-hover">
 
                 <thead>
-                <tr>
+                <tr class="success">
                     <th>Sr.No</th>
-                    <th>Item Code</th>
                     <th>Item Name</th>
                     <th>Price</th>
                     <th colspan="4">Operations</th>
@@ -99,12 +98,12 @@ $def with (menu)
                 $for c in menu:
                 <tr class="$loop.parity">
                     <td>$loop.index</td>
-                    $for item in c:
-                    <td class="$loop.parity">$item</td>
+                    <td>$c[1]</td>
+                    <td>$c[2]</td>
                 <td>
-                        <button class="btn btn-default" onclick="removeItem($c[1])">Remove</button>
+                        <button class="btn btn-default" onclick="removeItem($c[0])">Remove</button>
                         &nbsp;&nbsp;
-                        <a class="btn btn-default" href="http://localhost:8080/editItem?buttonId=$c[1]">Edit</a>
+                        <a class="btn btn-default" href="http://localhost:8080/editItem?buttonId=$c[0]">Edit</a>
                 </td>
                 </tr>
 
@@ -141,7 +140,6 @@ $def with (menu)
 
 function removeItem(buttonId){
     // construct an HTTP request
-   // alert(buttonId);
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "removeItem", true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
@@ -159,9 +157,8 @@ function editItem(buttonId,e){
   xhr.open("GET", "editItem?buttonId="+buttonId, true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
-  // send the collected data as JSON
+  // send the request
   xhr.send();
-  alert("Edited Item sent")
   }
 
 function goBack() {

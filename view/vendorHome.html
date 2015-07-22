@@ -3,150 +3,157 @@ $def with (session)
 
 <head>
 
-<title>Food Ordering System</title>
+    <title>Food Ordering System</title>
 
-<!-- Bootstrap Core CSS -->
-<link href="static/squadfree/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css">
+    <!-- Bootstrap Core CSS -->
+    <link href="static/squadfree/css/bootstrap.min.css" rel="stylesheet"
+          type="text/css">
 
-<!-- Fonts -->
-<link href="static/squadfree/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link href="static/squadfree/css/animate.css" rel="stylesheet" />
-<!-- Squad theme CSS -->
-<link href="static/squadfree/css/style.css" rel="stylesheet">
-<link href="static/squadfree/color/default.css" rel="stylesheet">
-
+    <!-- Fonts -->
+    <link href="static/squadfree/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
+    <link href="static/squadfree/css/animate.css" rel="stylesheet"/>
+    <!-- Squad theme CSS -->
+    <link href="static/squadfree/css/style.css" rel="stylesheet">
+    <link href="static/squadfree/color/default.css" rel="stylesheet">
 
 
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
-	<!-- Preloader -->
-	<div id="preloader">
-		<div id="load"></div>
-	</div>
+<!-- Preloader -->
+<div id="preloader">
+    <div id="load"></div>
+</div>
 
-	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header page-scroll">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-main-collapse">
-					<i class="fa fa-bars"></i>
-				</button>
-				<a class="navbar-brand" href="#">
-					<h1>Food Ordering System</h1>
-				</a>
-			</div>
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="#">
+                <h1>Food Ordering System</h1>
+            </a>
+        </div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div
-				class="collapse navbar-collapse navbar-right navbar-main-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#intro">Home</a></li>
-					<li><a href="#search" >Search</a></li>
-					<li><a href="#menu">Menu</a></li>
-					<li><a href="#work">Hello $session['username']</a></li>
-
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div
+                class="collapse navbar-collapse navbar-right navbar-main-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#intro">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#">Hello $session['username']</a></li>
 
 
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
 
 
-	<!-- Section: intro -->
-	<section id="intro" class="intro">
+<!-- Section: intro -->
+<section id="intro" class="intro">
 
-		<div class="slogan">
-			<h2>
-				Welcome <span class="text_color">$session['username']</span>
-			</h2>
+    <div class="slogan">
+        <h2>
+            Welcome <span class="text_color">$session['username']</span>
+        </h2>
 
-		</div>
-		<div class="page-scroll">
-			<a href="#menu" class="btn btn-circle"> <i
-				class="fa fa-angle-double-down animated"></i>
-			</a>
-		</div>
-	</section>
-	<!-- /Section: intro -->
-		<!-- Section: menu -->
-    <section id="menu" class="home-section text-center">
-		<div class="heading-about">
-			<div class="container">
-			<div class="row">
-				<div class="col-lg-8 col-lg-offset-2">
-					<div class="wow bounceInDown" data-wow-delay="0.4s">
-					<div class="section-heading">
-					<h2>Menu</h2>
-					<i class="fa fa-2x fa-angle-down"></i>
+    </div>
+    <div class="page-scroll">
+        <a href="#menu" class="btn btn-circle"> <i
+                class="fa fa-angle-double-down animated"></i>
+        </a>
+    </div>
+</section>
+<!-- /Section: intro -->
+<!-- Section: menu -->
+<section id="menu" class="home-section text-center">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Menu</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
 
-					</div>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		<div class="container">
-		<nav class="outer-nav left vertical">
-				<form action="vendorProfile" method="get">
-					<button type="submit" class="btn btn-primary btn-lg">View/Edit
-						Profile</button>
-				</form><br>
-				<form action="updateMenu" method="get">
-					<button type="submit" class="btn btn-primary btn-lg">Update
-						Food Menu</button>
-				</form><br>
-				<form action="addMoreFoodMenu" method="get">
-					<button type="submit" class="btn btn-primary btn-lg">Add
-						Menu Item</button>
-				</form><br>
-				<form action="foodOrders" method="get">
-					<button type="submit" class="btn btn-primary btn-lg">View
-                        Orders</button>
-				</form><br>
-				<form action="logout" method="get">
-					<button type="submit" class="btn btn-primary btn-lg">Logout</button>
-				</form>
-			</nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <nav class="outer-nav left vertical">
+            <form action="vendorProfile" method="get">
+                <button type="submit" class="btn btn-primary btn-lg">View/Edit
+                    Profile
+                </button>
+            </form>
+            <br>
+
+            <form action="updateMenu" method="get">
+                <button type="submit" class="btn btn-primary btn-lg">Update
+                    Food Menu
+                </button>
+            </form>
+            <br>
+
+            <form action="addMoreFoodMenu" method="get">
+                <button type="submit" class="btn btn-primary btn-lg">Add
+                    Menu Item
+                </button>
+            </form>
+            <br>
+
+            <form action="foodOrders" method="get">
+                <button type="submit" class="btn btn-primary btn-lg">View
+                    Orders
+                </button>
+            </form>
+            <br>
+
+            <form action="logout" method="get">
+                <button type="submit" class="btn btn-primary btn-lg">Logout</button>
+            </form>
+        </nav>
 
 
+    </div>
+</section>
+<!-- /Section: about -->
 
 
-		</div>
-	</section>
-	<!-- /Section: about -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="wow shake" data-wow-delay="0.4s">
+                    <div class="page-scroll marginbot-30">
+                        <a href="#intro" id="totop" class="btn btn-circle"> <i
+                                class="fa fa-angle-double-up animated"></i>
+                        </a>
+                    </div>
+                </div>
+                <p>&copy;Copyright 2014 - FOS. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
-
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 col-lg-12">
-					<div class="wow shake" data-wow-delay="0.4s">
-						<div class="page-scroll marginbot-30">
-							<a href="#intro" id="totop" class="btn btn-circle"> <i
-								class="fa fa-angle-double-up animated"></i>
-							</a>
-						</div>
-					</div>
-					<p>&copy;Copyright 2014 - FOS. All rights reserved.</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<!-- Core JavaScript Files -->
-	<script src="static/squadfree/js/jquery.min.js"></script>
-	<script src="static/squadfree/js/bootstrap.min.js"></script>
-	<script src="static/squadfree/js/jquery.easing.min.js"></script>
-	<script src="static/squadfree/js/jquery.scrollTo.js"></script>
-	<script src="static/squadfree/js/wow.min.js"></script>
-	<!-- Custom Theme JavaScript -->
-	<script src="static/squadfree/js/custom.js"></script>
+<!-- Core JavaScript Files -->
+<script src="static/squadfree/js/jquery.min.js"></script>
+<script src="static/squadfree/js/bootstrap.min.js"></script>
+<script src="static/squadfree/js/jquery.easing.min.js"></script>
+<script src="static/squadfree/js/jquery.scrollTo.js"></script>
+<script src="static/squadfree/js/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="static/squadfree/js/custom.js"></script>
 
 </body>
 

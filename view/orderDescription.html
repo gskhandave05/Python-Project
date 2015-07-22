@@ -85,12 +85,11 @@ $def with (orderDetails,mailId)
         </div>
     </div>
     <div class="container">
-            <table border="1" class="table table-condensed">
+            <table class="table table-hover">
 
                 <thead>
-                <tr>
+                <tr class="success">
                     <th>Sr.No</th>
-                    <th>Order Id</th>
                     <th>Item Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
@@ -100,8 +99,10 @@ $def with (orderDetails,mailId)
                 $for c in orderDetails:
                 <tr class="$loop.parity">
                     <td>$loop.index</td>
-                    $for item in c:
-                    <td class="$loop.parity">$item</td>
+                    <td>$c[1]</td>
+                    <td>$c[2]</td>
+                    <td>$c[3]</td>
+                    <td>$c[4]</td>
                 </tr>
 
             </table>

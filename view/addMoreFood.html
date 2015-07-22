@@ -1,11 +1,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>Food Ordering System</title>
 
     <!-- Bootstrap Core CSS -->
@@ -117,6 +112,7 @@
                 <table>
                     <td>
                         <button type="button" class="btn btn-primary" onclick="sendData()">Add Menu</button>
+                        <button class="btn btn-default" type="button" onclick="goBack()">Back</button>
                     </td>
                     </tr>
                 </table>
@@ -186,7 +182,8 @@ function sendData() {
 };
 
 var count = "1";
-  function addRow(in_tbl_name)
+
+function addRow(in_tbl_name)
   {
     var tbody = document.getElementById(in_tbl_name).getElementsByTagName("TBODY")[0];
     // create row
@@ -222,7 +219,9 @@ var count = "1";
     // append row to table
     tbody.appendChild(row);
   }
-  function delRow()
+
+
+function delRow()
   {
     var current = window.event.srcElement;
     //here we will delete the line
@@ -230,10 +229,9 @@ var count = "1";
          current.parentElement.removeChild(current);
   }
 
-
-
-
-
+function goBack() {
+            window.history.back();
+            }
 
 
 </script>

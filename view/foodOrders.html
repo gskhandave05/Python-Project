@@ -85,12 +85,11 @@ $def with (orders)
         </div>
     </div>
     <div class="container">
-            <table border="1" class="table table-condensed">
+            <table class="table table-hover">
 
                 <thead>
-                <tr>
+                <tr class="success">
                     <th>Sr.No</th>
-                    <th>Order Id</th>
                     <th>Customer Name</th>
                     <th>Contact</th>
                     <th>Email</th>
@@ -106,12 +105,17 @@ $def with (orders)
                 $for c in orders:
                 <tr class="$loop.parity">
                     <td>$loop.index</td>
-                    $for item in c:
-                    <td class="$loop.parity">$item</td>
+                    <td>$c[1]</td>
+                    <td>$c[2]</td>
+                    <td>$c[3]</td>
+                    <td>$c[4]</td>
+                    <td>$c[5]</td>
+                    <td>$c[6]</td>
+                    <td>$c[7]</td>
+                    <td>$c[8]</td>
+                    <td>$c[9]</td>
                 <td>
                         <a class="btn btn-default" href="http://localhost:8080/orderDescription?orderId=$c[0]&mailId=$c[3]">View Order Items</a>
-                        <!--&nbsp;&nbsp;-->
-                        <!--<a class="btn btn-danger" href="http://localhost:8080/editItem?buttonId=$c[1]">Reject</a>-->
                 </td>
                 </tr>
 

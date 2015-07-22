@@ -98,19 +98,15 @@ $def with (foodItem)
 
 
             <div class="form-group">
-                <label class="control-label col-sm-2">Vendor Id:</label>
-
                 <div class="col-xs-6">
-                    <input type=text name="vendorId" class="form-control"
-                           value="$foodItem[0]" disabled="disabled">
+                    <input type=hidden name="vendorId" class="form-control"
+                           value="$foodItem[0]" disabled="disabled" >
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-2">Item Code:</label>
-
                 <div class="col-xs-6">
-                    <input type=text name="itemId" class="form-control"
+                    <input type=hidden name="itemId" class="form-control"
                            value="$foodItem[1]" disabled="disabled">
                 </div>
             </div>
