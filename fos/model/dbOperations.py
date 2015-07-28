@@ -16,6 +16,7 @@ def addVendor(name, contact, email,city, username, password, isActive, menu):
 
     addMenu(menu)
 
+
 # Method is used to add vendor food menu in menu table.
 # Menu is a dictionary having two lists : price and itemName.
 # Takes menu list as a parameter.
@@ -30,6 +31,19 @@ def addMenu(menu):
                 cur.execute("INSERT INTO MENU(vendor_id,item_name,price) values (%s,%s,%s)",
                             (vendorId['VENDOR_ID'], itemName, item['price'][i]))
                 i = i + 1
+
+def addCustomer(name, contact, email, isRegistered, username, password, flat_no, building, street, area, city, state, pincode):
+    with con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO ADDRESSES(flat_no, building, street, area, city, state, pincode) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                    (flat_no, building, street, area, city, state, pincode))
+
+        cur.execute("SELECT ADDRESS_ID FROM ADDRESSES ORDER BY ADDRESS_ID DESC LIMIT 1 ")
+        address_id = cur.fetchone()
+
+        cur.execute("INSERT INTO CUSTOMERS(name, contact, email, address_id, isRegistered, username, password)VALUES(%s,%s,%s,%s,%s,%s,%s)",
+                    (name, contact, email, address_id[0], isRegistered, username, password))
+
 
 # Method is used to fetch all admins from admins table.
 # returns admins list.
