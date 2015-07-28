@@ -61,7 +61,7 @@ class CustomerLogin(object):
     def GET(self):
         return render.customerLogin()
     
-     def POST(self):
+    def POST(self):
         form = web.input(username=None, password=None)
         if loginService.authenticateCustomer(form.username, form.password):
             customer = fosdb.getRegisteredCustomer(form.username,form.password)
