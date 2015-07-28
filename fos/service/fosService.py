@@ -14,7 +14,17 @@ urls = (
   '/customerProfile','CustomerProfile',
   '/customerAddress','CustomerAddress',
   '/restaurantList','RestaurantList',
-  '/foodMenu','FoodMenu'
+  '/foodMenu','FoodMenu',
+  '/logout','Logout',
+  '/vendorProfile','VendorProfile',
+  '/updateMenu','UpdateFoodMenu',
+  '/removeItem','RemoveItem',
+  '/editItem','EditItem',
+  '/addMoreFoodMenu','AddMoreFoodMenu',
+  '/foodOrders','FoodOrders',
+  '/orderDescription','OrderDescription',
+  '/acceptOrder','AcceptOrder',
+  '/rejectOrder','RejectOrder'
 )
 
 app = web.application(urls, globals())
@@ -60,7 +70,7 @@ class VendorLogin(object):
 class CustomerLogin(object):
     def GET(self):
         return render.customerLogin()
-    
+
     def POST(self):
         form = web.input(username=None, password=None)
         if loginService.authenticateCustomer(form.username, form.password):
