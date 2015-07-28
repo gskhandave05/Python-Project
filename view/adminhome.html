@@ -1,0 +1,25 @@
+$def with (session,vendorData)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Home</title>
+     <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    Welcome $session['username']
+    <div class="container">
+        <form id="adminHome" class="form-horizontal">
+            </br>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-primary" onclick="viewVendorRequests()">View Vendor Requests</button>
+                </div>
+                <div>
+                    $vendorData[0]
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
