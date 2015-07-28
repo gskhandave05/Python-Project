@@ -172,3 +172,56 @@ def deleteRejectedOrder(orderId):
         cur.execute(
             "DELETE from orders WHERE order_id=%s",
             (orderId))
+
+def getAllCustomersFromDb():
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("Select * from customers")
+        customerList = cur.fetchall()
+        return customerList
+
+def getRegisteredCustomer(username,password):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM CUSTOMERS WHERE USERNAME = %s AND PASSWORD = %s",(username,password))
+        customer = cur.fetchone()
+        print customer
+        return customer
+
+def getCustomerByCustomerID(customerID):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM CUSTOMERS WHERE cust_id = %s",(customerID))
+        customer = cur.fetchone()
+        return customer
+
+
+def updateCustomerProfile(name,contact,email,username,password,customerId):
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("UPDATE CUSTOMERS SET name=%s, contact=%s, email=%s, username=%s, password=%s WHERE cust_id = %s",
+                    (name,contact,email,username,password,customerId))
+
+
+def getAddressByCustomerId(customerID):
+    with con:
+        cur = con.cursor()
+        cur.execute(
+            "SELECT ADDRESSES.* FROM ADDRESSES JOIN CUSTOMERS ON ADDRESSES.address_id = CUSTOMERS.address_id WHERE CUSTOMERS.cust_id = %s",
+            (customerID))
+        address = cur.fetchone()
+        return address
+
+
+def updateAddress(flat_no,building,street,area,city,state,pincode,addressId):
+    with con:
+        cur = con.cursor(mdb.cursors.DictCursor)
+        cur.execute("UPDATE ADDRESSES SET flat_no=%s, building=%s, street=%s, area=%s, city=%s, state=%s, pincode=%s WHERE address_id=%s",
+                    (flat_no,building,street,area,city,state,pincode,addressId))
+
+def getAllVendorsByCity(city):
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT vendor_id,name,contact FROM VENDORS WHERE city=%s AND isActive=1",(city))
+        vendors = cur.fetchall()
+        return vendors
