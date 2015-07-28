@@ -6,10 +6,12 @@ import json
 import fos.model.dbOperations as fosdb
 
 urls = (
-  '/vendorLogin', 'VendorLogin','/vendorRegister','VendorRegister',
-    '/logout','Logout','/vendorProfile','VendorProfile','/updateMenu','UpdateFoodMenu','/removeItem','RemoveItem',
-    '/editItem','EditItem','/addMoreFoodMenu','AddMoreFoodMenu','/foodOrders','FoodOrders',
-  '/orderDescription','OrderDescription','/acceptOrder','AcceptOrder','/rejectOrder','RejectOrder'
+  '/vendorLogin', 'VendorLogin',
+  '/vendorRegister','VendorRegister',
+  '/customerLogin', 'CustomerLogin',
+  '/customerRegister', 'CustomerRegister',
+  '/adminLogin', 'AdminLogin',
+  '/registerCustomer', 'RegisterCustomer'
 )
 
 app = web.application(urls, globals())
@@ -115,7 +117,7 @@ class AddMoreFoodMenu(object):
         if sessionData['userId']!=None:
             return render.addMoreFood()
         else:
-            return "<h1>You need to log in first.<h1>"
+            return "Invalid credentials"
 
     def POST(self):
         vendorId = sessionData['userId']
